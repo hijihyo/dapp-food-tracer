@@ -257,3 +257,6 @@ package-lock.json
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,vscode,node,solidity,soliditytruffle,git
+
+log/
+contracts/artifacts/
