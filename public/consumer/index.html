@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/consumer/style.css">
+    <title>Consumer - Food Tracer</title>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Food Tracer <small>Consumers' Page</small></h1>
+    </div>
+    <div id="unlockAccount" class="panel panel-default">
+        <div class="panel-heading">Unlock Account</div>
+        <div class="panel-body">
+            <label for="address">Your Address</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="address" size="50">
+                <button class="btn btn-primary margin-horizontal" onclick="unlockAccount()">Unlock</button>
+            </div>
+        </div>
+    </div>
+    <div id="registerConsumer" class="panel panel-default">
+        <div class="panel-heading">Register Consumer</div>
+        <div class="panel-body">
+            <label for="consumer-name">Name</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="consumer-name" size="20">
+            </div>
+            <label for="consumer-description">Description</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="consumer-description" size="100">
+            </div>
+            <button class="btn btn-primary margin-vertical" onclick="registerConsumer()">Register</button>
+        </div>
+    </div>
+    <div id="searchFood" class="panel panel-default">
+        <div class="panel-heading">Search Food</div>
+        <div class="panel-body">
+            <label for="food-id-in-search">Food ID</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="food-id-in-search" size="30">
+                <button class="btn btn-primary margin-horizontal" onclick="searchFood()">Search</button>
+            </div>
+        </div>
+    </div>
+    <div id="consumeFood" class="panel panel-default">
+        <div class="panel-heading">Consume Food</div>
+        <div class="panel-body">
+            <label for="food-id-in-consume">Food ID</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="food-id-in-consume" size="30">
+                <button class="btn btn-primary margin-horizontal" onclick="consume()">Consume</button>
+            </div>
+            <div id="foodTrace"> 
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+</html>

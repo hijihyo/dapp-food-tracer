@@ -8,6 +8,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node webserver.js"
+  },
+  "dependencies": {
+    "express": "^4.17.0"
   }
 }
