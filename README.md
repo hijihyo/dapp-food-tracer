@@ -1,12 +1,30 @@
 # DApp : Food Tracer
 A blockchain-based food tracer
-## Installation (only for the front-end)
+## Installation
 1. Clone the project.
     ```shell
     git clone https://github.com/hi-jihyo/dapp-food-tracer.git
     ```
-2. Run the server.
+2. Install truffle (I used v5.1.64).
     ```shell
-    npm run server
+    npm install -g truffle
     ```
-3. Go to `localhost:8080`.
+3. Install npm modules.
+    ```shell
+    npm install
+    ````
+4. Run the project.
+    ```shell
+    truffle develop
+    ```
+    In the new shell,
+
+    ```shell
+    truffle compile
+    truffle migrate --reset
+    ```
+    and copy */build/contracts/FoodTracer.json* to */public/contract/FoodTracer.json*.
+    ```shell
+    npm start
+    ````
+5. Go to `localhost:8080`.
