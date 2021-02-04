@@ -3,14 +3,21 @@
   "version": "1.0.0",
   "description": "A Blockchain-based Food Tracer",
   "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hi-jihyo/dapp-food-tracer.git"
+  },
   "main": "",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "server": "node webserver.js"
+    "prestart": "bower install",
+    "start": "node webserver.js"
   },
   "dependencies": {
-    "express": "^4.17.0"
+    "bower": "^1.8.12",
+    "express": "^4.17.0",
+    "@truffle/contract": "^4.3.6"
   }
 }
