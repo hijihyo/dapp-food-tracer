@@ -150,14 +150,15 @@ contract FoodTracer {
         return _id;
     }
 
-    function isProducer() public view returns (bool) {
-        return producers[msg.sender].isProducer;
+    // TODO : isProducer 인자 추가하기
+    function isProducer(address _address) public view returns (bool) {
+        return producers[_address].isProducer;
     }
-    function isDistributer() public view returns (bool) {
-        return distributers[msg.sender].isDistributer;
+    function isDistributer(address _address) public view returns (bool) {
+        return distributers[_address].isDistributer;
     }
-    function isConsumer() public view returns (bool) {
-        return consumers[msg.sender].isConsumer;
+    function isConsumer(address _address) public view returns (bool) {
+        return consumers[_address].isConsumer;
     }
 
     function getProducerInfo(address _producer) public view
@@ -185,9 +186,34 @@ contract FoodTracer {
         return (consumers[_consumer].name, consumers[_consumer].description);
     }
 
-    function getFoodInfo(uint _id) public view onlyValidFood(_id)
-        returns (string memory, address, address[] memory) {
+    function getProducedFood(address _address) public view
+        returns (uint[] memory) {
 
-        return (foods[_id].name, foods[_id].producer, foods[_id].distributers);
+        require(producers[_address].isProducer,
+            "the given address is not a producer");
+
+        return (producers[_address].producedFoods);
+    }
+    function getDistributedFood(address _address) public view
+        returns (uint[] memory) {
+
+        require(distributers[_address].isDistributer,
+            "the given address is not a distributer");
+
+        return (distributers[_address].distributedFoods);
+    }
+    function getConsumedFood(address _address) public view
+        returns (uint[] memory) {
+
+        require(consumers[_address].isConsumer,
+            "the given address is not a consumer");
+
+        return (consumers[_address].consumedFoods);
+    }
+
+    function getFoodInfo(uint _id) public view
+        returns (bool, string memory, address, address[] memory) {
+
+        return (foods[_id].isValid, foods[_id].name, foods[_id].producer, foods[_id].distributers);
     }
 }
