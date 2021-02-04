@@ -260,3 +260,5 @@ package-lock.json
 
 log/
 contracts/artifacts/
+
+public/contract/
