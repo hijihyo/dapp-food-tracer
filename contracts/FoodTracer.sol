@@ -1,4 +1,4 @@
-pragma solidity ^0.4.22;
+pragma solidity ^0.5.16;
 
 contract FoodTracer {
     /* STRUCTURES */
@@ -83,7 +83,7 @@ contract FoodTracer {
     // events and functions for producers
     event ProducerRegisteredEvent(address producer, string name);
     event FoodRegisteredEvent(uint id, string name, address producer);
-    function registerProducer(string _name, string _description) public {
+    function registerProducer(string memory _name, string memory _description) public {
         producers[msg.sender].isProducer = true;
         producers[msg.sender].isValid = true;
         producers[msg.sender].name = _name;
@@ -91,7 +91,7 @@ contract FoodTracer {
 
         emit ProducerRegisteredEvent(msg.sender, _name);
     }
-    function registerFood(string _name) public onlyProducer returns (uint) {
+    function registerFood(string memory _name) public onlyProducer returns (uint) {
         uint id = nextId++;
 
         foods[id].isValid = true;
@@ -108,7 +108,7 @@ contract FoodTracer {
     // events and functions for distributers
     event DistributerRegisteredEvent(address distributer, string name);
     event DistributionRegisteredEvent(uint id, string name, address distributer);
-    function registerDistributor(string _name, string _description) public {
+    function registerDistributor(string memory _name, string memory _description) public {
         distributers[msg.sender].isDistributer = true;
         distributers[msg.sender].isValid = true;
         distributers[msg.sender].name = _name;
@@ -131,7 +131,7 @@ contract FoodTracer {
     event ConsumerRegisteredEvent(address consumer, string name);
     event FoodtraceCheckedEvent(uint id, string name, address watcher);
     event FoodConsumedEvent(uint id, string name, address consumer);
-    function registerConsumer(string _name, string _description) public {
+    function registerConsumer(string memory _name, string memory _description) public {
         consumers[msg.sender].isConsumer = true;
         consumers[msg.sender].isValid = true;
         consumers[msg.sender].name = _name;
@@ -160,27 +160,33 @@ contract FoodTracer {
         return consumers[msg.sender].isConsumer;
     }
 
-    function getProducerInfo(address _producer) public view returns (string, string) {
+    function getProducerInfo(address _producer) public view
+        returns (string memory, string memory) {
+
         require(producers[_producer].isProducer,
             "the given address is not a producer");
 
         return (producers[_producer].name, producers[_producer].description);
     }
-    function getDistributerInfo(address _distributer) public view returns (string, string) {
+    function getDistributerInfo(address _distributer) public view
+        returns (string memory, string memory) {
+
         require(distributers[_distributer].isDistributer,
             "the given address is not a distributer");
 
         return (distributers[_distributer].name, distributers[_distributer].description);
     }
-    function getConsumerInfo(address _consumer) public view returns (string, string) {
+    function getConsumerInfo(address _consumer) public view
+        returns (string memory, string memory) {
+        
         require(consumers[_consumer].isConsumer,
             "the given address is not a consumer");
 
         return (consumers[_consumer].name, consumers[_consumer].description);
     }
 
-    function getFoodInfo(uint _id) public view returns (string, address, address[]) {
-        require(foods[_id].isValid, "the given id is invalid");
+    function getFoodInfo(uint _id) public view onlyValidFood(_id)
+        returns (string memory, address, address[] memory) {
 
         return (foods[_id].name, foods[_id].producer, foods[_id].distributers);
     }
