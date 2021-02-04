@@ -12,12 +12,12 @@
     "test": "test"
   },
   "scripts": {
-    "prestart": "bower install",
     "start": "node webserver.js"
   },
   "dependencies": {
-    "bower": "^1.8.12",
+    "@truffle/contract": "^4.3.6",
     "express": "^4.17.0",
-    "@truffle/contract": "^4.3.6"
+    "jquery": "^3.5.0",
+    "web3": "^1.3.0"
   }
 }
