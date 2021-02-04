@@ -1,0 +1,20 @@
+{
+  "name": "dapp-food-tracer",
+  "description": "A Blockchain-based Food Tracer",
+  "main": "",
+  "authors": [
+    "Seunghyun Kim <shkim9533@korea.ac.kr>"
+  ],
+  "homepage": "https://github.com/hi-jihyo/dapp-food-tracer",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "web3": "^1.3.0",
+    "jquery": "^3.5.0"
+  }
+}
