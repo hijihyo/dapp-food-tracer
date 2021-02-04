@@ -150,6 +150,16 @@ contract FoodTracer {
         return _id;
     }
 
+    function isProducer() public view returns (bool) {
+        return producers[msg.sender].isProducer;
+    }
+    function isDistributer() public view returns (bool) {
+        return distributers[msg.sender].isDistributer;
+    }
+    function isConsumer() public view returns (bool) {
+        return consumers[msg.sender].isConsumer;
+    }
+
     function getProducerInfo(address _producer) public view returns (string, string) {
         require(producers[_producer].isProducer,
             "the given address is not a producer");
