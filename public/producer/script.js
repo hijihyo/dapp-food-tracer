@@ -4,8 +4,6 @@ const web3 = new Web3(Web3.givenProvider || "ws://localhost:9545");
 let FoodTracer = null;
 let foodTracer = null;
 
-let temp = null;
-
 const MINUTE = 60;
 const HTML_ALERT_SUCCESS = "<div class=\"alert alert-success\" role=\"alert\")><strong>Well done!</strong> ";
 const HTML_ALERT_INFO = "<div class=\"alert alert-info\" role=\"alert\"><strong>Heads up!</strong> ";
@@ -63,6 +61,7 @@ function unlockAccount() {
                     setTimeout(() => $("#alert-box").html(""), 10000);
 
                     $("#unlock-account").hide();
+                    _hideMenuForProducers();
                     _showMenuForProducers();
                 }
                 else {
@@ -73,8 +72,9 @@ function unlockAccount() {
                     
                     _addAlert(alert_success + alert_warning);
 
-                    _showMenuForNonProducers();
                     $("#unlock-account").hide();
+                    _hideMenuForNonProducers();
+                    _showMenuForNonProducers();
                 }
             });
         }
@@ -128,7 +128,7 @@ function registerProducer() {
         "registered as a producer. Reason : " + error.reason + "</div>";
 
         _addAlert(alert_danger);
-    })
+    });
 }
 
 function registerFood() {
@@ -185,7 +185,8 @@ function _updateProducedFood() {
                 })
                 .catch(error => {
                     let alert_danger = HTML_ALERT_DANGER + "Sorry! Error occurred while " +
-                    "updating the \'Food Produced By You\'. Reason : " + error.reason + "</div>";
+                    "updating the \'Food Produced By You\'. Reason : " + error.reason + 
+                    "</div>";
             
                     _addAlert(alert_danger);
                 });
