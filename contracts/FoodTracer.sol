@@ -9,8 +9,8 @@ contract FoodTracer {
         string description;
         uint[] producedFoods;
     }
-    struct DistributerType {
-        bool isDistributer;
+    struct DistributorType {
+        bool isDistributor;
         bool isValid;
         string name;
         string description;
@@ -29,14 +29,14 @@ contract FoodTracer {
         bool isValid;
         string name;
         address producer;
-        address[] distributers;
+        address[] distributors;
     }
 
 
     /* STATE VARIABLES*/
     address public administrator;
     mapping (address => ProducerType) producers;
-    mapping (address => DistributerType) distributers;
+    mapping (address => DistributorType) distributors;
     mapping (address => ConsumerType) consumers;
 
     uint nextId;
@@ -54,9 +54,9 @@ contract FoodTracer {
             "this function can be called only by a producer");
         _;
     }
-    modifier onlyDistributer() {
-        require(distributers[msg.sender].isDistributer,
-            "this function can be called only by a distributer");
+    modifier onlyDistributor() {
+        require(distributors[msg.sender].isDistributor,
+            "this function can be called only by a distributor");
         _;
     }
     modifier onlyConsumer() {
@@ -105,22 +105,22 @@ contract FoodTracer {
         return id;
     }
 
-    // events and functions for distributers
-    event DistributerRegisteredEvent(address distributer, string name);
-    event DistributionRegisteredEvent(uint id, string name, address distributer);
+    // events and functions for distributors
+    event DistributorRegisteredEvent(address distributor, string name);
+    event DistributionRegisteredEvent(uint id, string name, address distributor);
     function registerDistributor(string memory _name, string memory _description) public {
-        distributers[msg.sender].isDistributer = true;
-        distributers[msg.sender].isValid = true;
-        distributers[msg.sender].name = _name;
-        distributers[msg.sender].description = _description;
+        distributors[msg.sender].isDistributor = true;
+        distributors[msg.sender].isValid = true;
+        distributors[msg.sender].name = _name;
+        distributors[msg.sender].description = _description;
 
-        emit DistributerRegisteredEvent(msg.sender, _name);
+        emit DistributorRegisteredEvent(msg.sender, _name);
     }
-    function registerDistribution(uint _id) public onlyDistributer onlyValidFood(_id)
+    function registerDistribution(uint _id) public onlyDistributor onlyValidFood(_id)
         returns (uint) {
 
-        foods[_id].distributers.push(msg.sender);
-        distributers[msg.sender].distributedFoods.push(_id);
+        foods[_id].distributors.push(msg.sender);
+        distributors[msg.sender].distributedFoods.push(_id);
 
         emit DistributionRegisteredEvent(_id, foods[_id].name, msg.sender);
 
@@ -154,8 +154,8 @@ contract FoodTracer {
     function isProducer(address _address) public view returns (bool) {
         return producers[_address].isProducer;
     }
-    function isDistributer(address _address) public view returns (bool) {
-        return distributers[_address].isDistributer;
+    function isDistributor(address _address) public view returns (bool) {
+        return distributors[_address].isDistributor;
     }
     function isConsumer(address _address) public view returns (bool) {
         return consumers[_address].isConsumer;
@@ -169,13 +169,13 @@ contract FoodTracer {
 
         return (producers[_producer].name, producers[_producer].description);
     }
-    function getDistributerInfo(address _distributer) public view
+    function getDistributorInfo(address _distributor) public view
         returns (string memory, string memory) {
 
-        require(distributers[_distributer].isDistributer,
-            "the given address is not a distributer");
+        require(distributors[_distributor].isDistributor,
+            "the given address is not a distributor");
 
-        return (distributers[_distributer].name, distributers[_distributer].description);
+        return (distributors[_distributor].name, distributors[_distributor].description);
     }
     function getConsumerInfo(address _consumer) public view
         returns (string memory, string memory) {
@@ -197,10 +197,10 @@ contract FoodTracer {
     function getDistributedFood(address _address) public view
         returns (uint[] memory) {
 
-        require(distributers[_address].isDistributer,
-            "the given address is not a distributer");
+        require(distributors[_address].isDistributor,
+            "the given address is not a distributor");
 
-        return (distributers[_address].distributedFoods);
+        return (distributors[_address].distributedFoods);
     }
     function getConsumedFood(address _address) public view
         returns (uint[] memory) {
@@ -214,6 +214,6 @@ contract FoodTracer {
     function getFoodInfo(uint _id) public view
         returns (bool, string memory, address, address[] memory) {
 
-        return (foods[_id].isValid, foods[_id].name, foods[_id].producer, foods[_id].distributers);
+        return (foods[_id].isValid, foods[_id].name, foods[_id].producer, foods[_id].distributors);
     }
 }
