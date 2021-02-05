@@ -57,8 +57,7 @@ function unlockAccount() {
                     "successfully unlocked.</div>"
                     let alert_info = HTML_ALERT_INFO + "You are a distributor.</div>";
                     
-                    $("#alert-box").html(alert_success + alert_info);
-                    setTimeout(() => $("#alert-box").html(""), 10000);
+                    _addAlert(alert_success + alert_info);
 
                     $("#unlock-account").hide();
                     _hideMenuForDistributors();
@@ -108,7 +107,7 @@ function registerDistributor() {
         if (result.logs[0].event == "DistributorRegisteredEvent") {
             let alert_success = HTML_ALERT_SUCCESS + "You are successfully " +
             "registered as a distributor. Welcome!</div>";
-            let alert_info = HTML_ALERT_INFO + "Register your crops as much " +
+            let alert_info = HTML_ALERT_INFO + "Register your distribution as much " +
             "as you want.</div>";
 
             _addAlert(alert_success + alert_info);
@@ -118,14 +117,14 @@ function registerDistributor() {
         }
         else {
             let alert_danger = HTML_ALERT_DANGER + "Sorry! You could not be " +
-            "registered as a producer. Please try again.</div>";
+            "registered as a distributor. Please try again.</div>";
 
             _addAlert(alert_danger);
         }
     })
     .catch(error => {
         let alert_danger = HTML_ALERT_DANGER + "Sorry! You could not be " +
-        "registered as a producer. Reason : " + error.reason + "</div>";
+        "registered as a distributor. Reason : " + error.reason + "</div>";
 
         _addAlert(alert_danger);
     });
@@ -155,7 +154,7 @@ function registerDistribution() {
         }
     })
     .catch(error => {
-        let alert_danger = HTML_ALERT_DANGER + "Sorry! Food could not be " +
+        let alert_danger = HTML_ALERT_DANGER + "Sorry! Your distribution could not be " +
         "registered. Reason : " + error.reason + "</div>";
 
         _addAlert(alert_danger);
