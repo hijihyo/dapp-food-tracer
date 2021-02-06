@@ -179,7 +179,8 @@ function _updateProducedFood() {
                 .then(result => {
                     let row = "<tr>" +
                     "<th scope=\"row\">" + foodId + "</th>" +
-                    "<td>" + result[1] + "</td>" +
+                    "<td><a href=\"/foodtrace/index.html?foodId=" + foodId +
+                    "\">" + result[1] + "</a></td>" +
                     "<td>" + (result[0]?"true":"false") + "</td></tr>";
                     $("#produced-food-tbody").append(row);
                 })
