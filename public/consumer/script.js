@@ -32,6 +32,7 @@ function _showMenuForConsumers() {
     $("#search-food").show();
     $("#consume-food").show();
     $("#consumed-food").show();
+    $("#consumer-info").show();
     _updateConsumedFood();
 }
 
@@ -39,6 +40,7 @@ function _hideMenuForNonConsumers() {
     $("#search-food").hide();
     $("#consume-food").hide();
     $("#consumed-food").hide();
+    $("#consumer-info").hide();
 }
 
 function _hideMenuForConsumers() {
@@ -59,6 +61,7 @@ function unlockAccount() {
                     "successfully unlocked.</div>"
                     let alert_info = HTML_ALERT_INFO + "You are a consumer.</div>";
                     
+                    _fillProfile(address);
                     _addAlert(alert_success + alert_info);
 
                     $("#unlock-account").hide();
@@ -99,6 +102,34 @@ function _addAlert(string) {
     setTimeout(() => $("#alert-box").html(""), 10000);
 }
 
+function _fillProfile(address) {
+    foodTracer.getConsumerInfo(address, { from : address })
+    .then(result => {
+        if (result) {
+            $("#info-name").html(result[0]);
+            $("#info-description").html(result[1]);
+        }
+        else {
+            let alert_danger = HTML_ALERT_DANGER + "Sorry! Error occurred while " +
+            "updating the profile.</div>";
+    
+            _addAlert(alert_danger);}
+    });
+
+    foodTracer.getConsumedFood(address, { from : address })
+    .then(result => {
+        if (result) {
+            $("#food-count").html(result.length);
+        }
+        else {
+            let alert_danger = HTML_ALERT_DANGER + "Sorry! Error occurred while " +
+            "updating the profile.</div>";
+    
+            _addAlert(alert_danger);
+        }
+    });
+}
+
 function registerConsumer() {
     const address = $("#address").val();
     const name = $("#consumer-name").val();
@@ -113,6 +144,7 @@ function registerConsumer() {
             let alert_info = HTML_ALERT_INFO + "Search and consume food as " +
             "much as you want.</div>";
 
+            _fillProfile(address);
             _addAlert(alert_success + alert_info);
             
             _hideMenuForConsumers();
@@ -183,6 +215,7 @@ function consumeFood() {
             let alert_info = HTML_ALERT_INFO + "The ID of consumed food \'" +
             foodId + ".</div>";
 
+            _fillProfile(address);
             _addAlert(alert_success + alert_info);
 
             _updateConsumedFood();

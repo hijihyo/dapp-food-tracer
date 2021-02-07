@@ -31,12 +31,14 @@ function _showMenuForNonDistributors() {
 function _showMenuForDistributors() {
     $("#register-distribution").show();
     $("#distributed-food").show();
+    $("#distributor-info").show();
     _updateDistributedFood();
 }
 
 function _hideMenuForNonDistributors() {
     $("#register-distribution").hide();
     $("#distributed-food").hide();
+    $("#distributor-info").hide();
 }
 
 function _hideMenuForDistributors() {
@@ -57,6 +59,7 @@ function unlockAccount() {
                     "successfully unlocked.</div>"
                     let alert_info = HTML_ALERT_INFO + "You are a distributor.</div>";
                     
+                    _fillProfile(address);
                     _addAlert(alert_success + alert_info);
 
                     $("#unlock-account").hide();
@@ -97,6 +100,34 @@ function _addAlert(string) {
     setTimeout(() => $("#alert-box").html(""), 10000);
 }
 
+function _fillProfile(address) {
+    foodTracer.getDistributorInfo(address, { from : address })
+    .then(result => {
+        if (result) {
+            $("#info-name").html(result[0]);
+            $("#info-description").html(result[1]);
+        }
+        else {
+            let alert_danger = HTML_ALERT_DANGER + "Sorry! Error occurred while " +
+            "updating the profile.</div>";
+    
+            _addAlert(alert_danger);}
+    });
+
+    foodTracer.getDistributedFood(address, { from : address })
+    .then(result => {
+        if (result) {
+            $("#food-count").html(result.length);
+        }
+        else {
+            let alert_danger = HTML_ALERT_DANGER + "Sorry! Error occurred while " +
+            "updating the profile.</div>";
+    
+            _addAlert(alert_danger);
+        }
+    });
+}
+
 function registerDistributor() {
     const address = $("#address").val();
     const name = $("#distributor-name").val();
@@ -110,6 +141,7 @@ function registerDistributor() {
             let alert_info = HTML_ALERT_INFO + "Register your distribution as much " +
             "as you want.</div>";
 
+            _fillProfile(address);
             _addAlert(alert_success + alert_info);
             
             _hideMenuForDistributors();
@@ -142,6 +174,7 @@ function registerDistribution() {
             let alert_info = HTML_ALERT_INFO + "The ID of your food \'" + name +
             "\' is " + foodId + ".</div>";
 
+            _fillProfile(address);
             _addAlert(alert_success + alert_info);
 
             _updateDistributedFood();

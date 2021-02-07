@@ -19,57 +19,70 @@
         <h1>Food Tracer <small>Distributors' Page</small></h1>
     </div>
     <div id="alert-box"></div>
-    <div id="unlock-account" class="panel panel-default">
-        <div class="panel-heading">Unlock Account</div>
-        <div class="panel-body">
-            <label for="address">Your Address</label>
-            <div class="input-group">
-                <input type="text" class="form-control" id="address" size="50">
+    <div id="flex-container">
+        <div id="inner-container">
+            <div id="unlock-account" class="panel panel-default">
+                <div class="panel-heading">Unlock Account</div>
+                <div class="panel-body">
+                    <label for="address">Your Address</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="address" size="50">
+                    </div>
+                    <label for="password">Your Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" size="50">
+                    </div>
+                    <button class="btn btn-primary margin-vertical" onclick="unlockAccount()">Unlock</button>
+                </div>
             </div>
-            <label for="password">Your Password</label>
-            <div class="input-group">
-                <input type="password" class="form-control" id="password" size="50">
+            <div id="register-distributor" class="panel panel-default">
+                <div class="panel-heading">Register Distributor</div>
+                <div class="panel-body">
+                    <label for="distributor-name">Name</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="distributor-name" size="20">
+                    </div>
+                    <label for="distributor-description">Description</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="distributor-description" size="100">
+                    </div>
+                    <button class="btn btn-primary margin-vertical" onclick="registerDistributor()">Register</button>
+                </div>
             </div>
-            <button class="btn btn-primary margin-vertical" onclick="unlockAccount()">Unlock</button>
+            <div id="register-distribution" class="panel panel-default">
+                <div class="panel-heading">Register Distribution</div>
+                <div class="panel-body">
+                    <label for="food-id">Food ID</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="food-id" size="30">
+                        <button class="btn btn-primary margin-horizontal" onclick="registerDistribution()">Register</button>
+                    </div>
+                </div>
+            </div>
+            <div id="distributed-food" class="panel panel-default">
+                <div class="panel-heading">Food Distributed By You</div>
+                <div class="panel-body"></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Is Valid</th>
+                        </tr>
+                    </thead>
+                    <tbody id="distributed-food-tbody"></tbody>
+                </table>
+            </div>
         </div>
-    </div>
-    <div id="register-distributor" class="panel panel-default">
-        <div class="panel-heading">Register Distributor</div>
-        <div class="panel-body">
-            <label for="distributor-name">Name</label>
-            <div class="input-group">
-                <input type="text" class="form-control" id="distributor-name" size="20">
-            </div>
-            <label for="distributor-description">Description</label>
-            <div class="input-group">
-                <input type="text" class="form-control" id="distributor-description" size="100">
-            </div>
-            <button class="btn btn-primary margin-vertical" onclick="registerDistributor()">Register</button>
-        </div>
-    </div>
-    <div id="register-distribution" class="panel panel-default">
-        <div class="panel-heading">Register Distribution</div>
-        <div class="panel-body">
-            <label for="food-id">Food ID</label>
-            <div class="input-group">
-                <input type="text" class="form-control" id="food-id" size="30">
-                <button class="btn btn-primary margin-horizontal" onclick="registerDistribution()">Register</button>
+        <div id="distributor-info" class="panel panel-default">
+            <div class="panel-body">
+                <h2 id="info-name"></h2>
+                <p id="info-description"></p>
+                <div id="info-food" class="panel panel-default">
+                    <p><strong>Distributed Food</strong>&nbsp&nbsp&nbsp&nbsp&nbsp<span id="food-count"></span></p>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="distributed-food" class="panel panel-default">
-        <div class="panel-heading">Food Distributed By You</div>
-        <div class="panel-body"></div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Is Valid</th>
-                </tr>
-            </thead>
-            <tbody id="distributed-food-tbody"></tbody>
-        </table>
     </div>
 
     <script type="text/javascript"src="/js/jquery-3.5.1.min.js"></script>

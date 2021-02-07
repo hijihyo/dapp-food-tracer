@@ -31,12 +31,14 @@ function _showMenuForNonProducers() {
 function _showMenuForProducers() {
     $("#register-food").show();
     $("#produced-food").show();
+    $("#producer-info").show();
     _updateProducedFood();
 }
 
 function _hideMenuForNonProducers() {
     $("#register-food").hide();
     $("#produced-food").hide();
+    $("#producer-info").hide();
 }
 
 function _hideMenuForProducers() {
@@ -57,8 +59,8 @@ function unlockAccount() {
                     "successfully unlocked.</div>"
                     let alert_info = HTML_ALERT_INFO + "You are a producer.</div>";
                     
-                    $("#alert-box").html(alert_success + alert_info);
-                    setTimeout(() => $("#alert-box").html(""), 10000);
+                    _fillProfile(address);
+                    _addAlert(alert_success + alert_info);
 
                     $("#unlock-account").hide();
                     _hideMenuForProducers();
@@ -98,6 +100,34 @@ function _addAlert(string) {
     setTimeout(() => $("#alert-box").html(""), 10000);
 }
 
+function _fillProfile(address) {
+    foodTracer.getProducerInfo(address, { from : address })
+    .then(result => {
+        if (result) {
+            $("#info-name").html(result[0]);
+            $("#info-description").html(result[1]);
+        }
+        else {
+            let alert_danger = HTML_ALERT_DANGER + "Sorry! Error occurred while " +
+            "updating the profile.</div>";
+    
+            _addAlert(alert_danger);}
+    });
+
+    foodTracer.getProducedFood(address, { from : address })
+    .then(result => {
+        if (result) {
+            $("#food-count").html(result.length);
+        }
+        else {
+            let alert_danger = HTML_ALERT_DANGER + "Sorry! Error occurred while " +
+            "updating the profile.</div>";
+    
+            _addAlert(alert_danger);
+        }
+    });
+}
+
 function registerProducer() {
     const address = $("#address").val();
     const name = $("#producer-name").val();
@@ -111,6 +141,7 @@ function registerProducer() {
             let alert_info = HTML_ALERT_INFO + "Register your crops as much " +
             "as you want.</div>";
 
+            _fillProfile(address);
             _addAlert(alert_success + alert_info);
             
             _hideMenuForProducers();
@@ -145,6 +176,7 @@ function registerFood() {
             let alert_info = HTML_ALERT_INFO + "The ID of your food \'" + name +
             "\' is " + foodId + ".</div>";
 
+            _fillProfile(address);
             _addAlert(alert_success + alert_info);
 
             _updateProducedFood();
