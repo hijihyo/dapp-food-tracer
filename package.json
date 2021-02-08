@@ -12,7 +12,8 @@
     "test": "test"
   },
   "scripts": {
-    "start": "node webserver.js"
+    "preinstall": "npm install -g truffle",
+    "start": "truffle develop & truffle compile && truffle migrate --reset && node webserver.js"
   },
   "dependencies": {
     "express": "^4.17.0"
